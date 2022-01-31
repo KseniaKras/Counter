@@ -1,0 +1,22 @@
+.result {
+    text-align: center;
+    width: auto;
+    font-size: 70px;
+    color: midnightblue;
+    margin: 10px;
+    height: 120px;
+    background-color: #01B7F0;
+    border: 3px solid #01B7F0;
+    border-radius: 10px;
+}
+
+.error {
+    width: auto;
+    font-size: 70px;
+    margin: 10px;
+    height: 120px;
+    border: 3px solid #01B7F0;
+    background-color: #01B7F0;
+    border-radius: 10px;
+    color: #b00f0f;
+}
