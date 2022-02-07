@@ -1,4 +1,4 @@
-.minmax {
+.setNewValues {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,8 +14,18 @@
 }
 
 .setValue {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
+    display: inline-block;
+
+}
 
 
+
+.allBtn {
+    color: black;
+    margin: 10px;
+    width: auto;
+    border: 3px solid #01B7F0;
+    border-radius: 10px;
 }

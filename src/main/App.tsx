@@ -1,55 +1,52 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import './App.module.css';
 import {Counter} from "../Counter/Counter";
 import c from './App.module.css';
-import {MinMax} from "../CounterSetValue/MinMax";
+import {SetNewValues} from "../CounterSetValue/SetNewValues";
 
 
 function App() {
-    let minValue = 0
-    let maxValue = 5
-    const [newMinValue, setNewMinValue] = useState(minValue)
-    const [newMaxValue, setNewMaxValue] = useState(maxValue)
-    // const [error,setError] = useState(maxValue);
+    const [minValue, setMinValue] = useState<number>(2)
+    const [maxValue, setMaxValue] = useState<number>(4)
+    const [error, setError] = useState<boolean | string>(false)
 
-    const incCallBack = () => {
-        newMinValue < newMaxValue && setNewMinValue(newMinValue + 1)
+    //const showErrorMessage = () => {}
+
+    const onClickSetNewValues = (min: number, max: number) => {
+        //debugger;
+        setMinValue(min)
+        setMaxValue(max)
     }
 
-    const resetCallBack = () => {
-        debugger;
-        return setNewMinValue(minValue)
-    }
-
-    // const changeMaxValue = (value: number) => {
-    //     if (newMinValue < newMaxValue) setNewMaxValue(value)
-    // }
-
-    // const changeMinValue = (value: number) => {
-    //     if (newMinValue < newMaxValue) setNewMinValue(value)
-    // }
-
-    const onClickSetValues = (min: number, max: number) => {
-        setNewMinValue(min)
-        setNewMaxValue(max)
+    const showErrorInSetNewValues = (value: boolean) => {
+        setError(value)
     }
 
     return (
         <div className={c.App}>
             <div className={c.counterSetValue}>
-                <MinMax startValue={newMinValue}
-                        maxValue={newMaxValue}
-                        onClickSetValues={onClickSetValues}
-                       // onClickSetValuesMax={onClickSetValues}
+
+                <SetNewValues
+                    minValue={minValue}
+                    maxValue={maxValue}
+                    onClickSetValues={onClickSetNewValues}
+                    error={error}
+                    errorCallback={showErrorInSetNewValues}
+                    //showErrorInCounter={showErrorInCounter}
+                    //error={error}
+                    // onClickSetValuesMax={onClickSetValues}
                 />
+
             </div>
             <div className={c.counter}>
-                <Counter incCallBack={incCallBack}
-                         resetCallBack={resetCallBack}
-                         counter={newMinValue}
-                         maxValue={newMaxValue}
-                         minValue={newMinValue}
+
+                <Counter
+                    minValue={minValue}
+                    maxValue={maxValue}
+                    error={error}
+                    //showErrorMessage={showErrorMessage}
                 />
+
             </div>
 
         </div>
@@ -57,37 +54,3 @@ function App() {
 }
 
 export default App;
-
-
-{/*<input value={value} type={"number"} onKeyPress={onKeyPressChangeValue} onChange={onChangeValue}/>*/
-}
-{/*{error && <Result totalResult={totalResult} />   }*/
-}
-{/*<Result totalResult={totalResult}/>*/
-}
-
-
-{/*<CounterB*/
-}
-{/*    incCallBack={incCallBack}*/
-}
-{/*    resetCallBack={resetCallBack}*/
-}
-{/*    counter={minValue}*/
-}
-{/*   />*/
-}
-{/*</div>*/
-}
-{/*<CounterSetValue*/
-}
-{/*    minValue={newMinValue}*/
-}
-{/*    maxValue={newMaxValue}*/
-}
-{/*    changeMaxValue={changeMaxValue}*/
-}
-{/*    changeMaxValue={changeMaxValue}*/
-}
-{/*/>*/
-}

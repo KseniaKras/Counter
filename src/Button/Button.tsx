@@ -14,6 +14,7 @@ export const Button = ({name, callBack, disabled,...props}:ButtonPropsType) => {
         callBack()
     }
     return (
+
         <button className={c.button} disabled={disabled} onClick={onClickHandler}>{name}</button>
     );
 };
