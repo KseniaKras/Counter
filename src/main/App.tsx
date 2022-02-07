@@ -3,13 +3,13 @@ import './App.module.css';
 import {Counter} from "../Counter/Counter";
 import c from './App.module.css';
 import {MinMax} from "../CounterSetValue/MinMax";
-import {Button} from "../Button/Button";
+
 
 function App() {
-    // let minValue = 1
-    // let maxValue = 5
-    const [newMinValue, setNewMinValue] = useState(0)
-    const [newMaxValue, setNewMaxValue] = useState(5)
+    let minValue = 0
+    let maxValue = 5
+    const [newMinValue, setNewMinValue] = useState(minValue)
+    const [newMaxValue, setNewMaxValue] = useState(maxValue)
     // const [error,setError] = useState(maxValue);
 
     const incCallBack = () => {
@@ -17,45 +17,32 @@ function App() {
     }
 
     const resetCallBack = () => {
-        return setNewMinValue(newMinValue)
+        debugger;
+        return setNewMinValue(minValue)
     }
 
-    const changeMaxValue = (value: number) => {
-        if (newMinValue < newMaxValue) setNewMaxValue(value)
-    }
+    // const changeMaxValue = (value: number) => {
+    //     if (newMinValue < newMaxValue) setNewMaxValue(value)
+    // }
 
-    const changeMinValue = (value: number) => {
-        if (newMinValue < newMaxValue) setNewMinValue(value)
-    }
+    // const changeMinValue = (value: number) => {
+    //     if (newMinValue < newMaxValue) setNewMinValue(value)
+    // }
 
-    const addNewValues = () => {
-
+    const onClickSetValues = (min: number, max: number) => {
+        setNewMinValue(min)
+        setNewMaxValue(max)
     }
 
     return (
         <div className={c.App}>
-
             <div className={c.counterSetValue}>
-
                 <MinMax startValue={newMinValue}
                         maxValue={newMaxValue}
-                        changeMinValue={changeMinValue}
-                        changeMaxValue={changeMaxValue}
-
+                        onClickSetValues={onClickSetValues}
+                       // onClickSetValuesMax={onClickSetValues}
                 />
-                <div className={c.allBtn}>
-                    <Button name={'set'} callBack={addNewValues} />
-                </div>
-
-
-                {/*<CounterSetValue*/}
-                {/*    minValue={newMinValue}*/}
-                {/*    maxValue={newMaxValue}*/}
-                {/*    changeMaxValue={changeMaxValue}*/}
-                {/*    changeMaxValue={changeMaxValue}*/}
-                {/*/>*/}
             </div>
-
             <div className={c.counter}>
                 <Counter incCallBack={incCallBack}
                          resetCallBack={resetCallBack}
@@ -77,4 +64,30 @@ export default App;
 {/*{error && <Result totalResult={totalResult} />   }*/
 }
 {/*<Result totalResult={totalResult}/>*/
+}
+
+
+{/*<CounterB*/
+}
+{/*    incCallBack={incCallBack}*/
+}
+{/*    resetCallBack={resetCallBack}*/
+}
+{/*    counter={minValue}*/
+}
+{/*   />*/
+}
+{/*</div>*/
+}
+{/*<CounterSetValue*/
+}
+{/*    minValue={newMinValue}*/
+}
+{/*    maxValue={newMaxValue}*/
+}
+{/*    changeMaxValue={changeMaxValue}*/
+}
+{/*    changeMaxValue={changeMaxValue}*/
+}
+{/*/>*/
 }

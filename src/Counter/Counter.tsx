@@ -20,11 +20,14 @@ export const Counter = ({
                             ...restProps
                         }: CounterPropsType) => {
     return (
+
+
+
         <div>
             <Result counter={counter} maxValue={maxValue}/>
             <div className={c.allBtn}>
                 <Button name={'inc'} callBack={incCallBack} disabled={counter === maxValue}/>
-                <Button name={'reset'} callBack={resetCallBack} disabled={counter === minValue}/>
+                <Button name={'reset'} callBack={resetCallBack} disabled={false}/>
             </div>
         </div>
     );
