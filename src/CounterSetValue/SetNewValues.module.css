@@ -17,12 +17,9 @@
     font-size: 20px;
     font-weight: bold;
     display: inline-block;
-
 }
 
-
-
-.allBtn {
+.buttonsBlock {
     color: black;
     margin: 10px;
     width: auto;

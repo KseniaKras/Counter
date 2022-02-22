@@ -6,46 +6,60 @@ import c from './../Button/Button.module.css'
 type CounterPropsType = {
     minValue: number
     maxValue: number
-    error: boolean | string
+    error: boolean
+    resultSettings: boolean
+    newCounterValue: number
+    setNewCounterValue: (value: number) => void
 }
 
-export const Counter = ({minValue,maxValue,error,...restProps}: CounterPropsType) => {
+export const Counter = ({
+                            minValue,
+                            maxValue,
+                            error,
+                            resultSettings,
+                            newCounterValue,
+                            setNewCounterValue
+                        }: CounterPropsType) => {
 
-    const [min, setMin] = useState(minValue)
-    const [disabled, setDisabled] = useState(false)
+    const [incDisabled, setIncDisabled] = useState(false)
+    const [resetDisabled, setResetDisabled] = useState(false)
 
     const onClickIncMinHandler = () => {
-        min < maxValue && setMin(min + 1)
-        setDisabled(false)
+        if (newCounterValue < maxValue) {
+            setNewCounterValue(newCounterValue + 1)
+            setResetDisabled(false)
+            setIncDisabled(false)
+        } else {
+            setIncDisabled(true)
+        }
     }
+
     const onClickResetHandler = () => {
-        setMin(minValue)
-        //setDisabled(true)
+        debugger
+        setNewCounterValue(minValue)
+        setResetDisabled(true)
+        setIncDisabled(false)
     }
     return (
         <div>
-
             <Result
-                counter={min}
+                counter={newCounterValue}
                 maxValue={maxValue}
                 error={error}
-                //showErrorMessage={showErrorMessage}
+                resultSettings={resultSettings}
             />
 
-            <div className={c.allBtn}>
-
+            <div className={c.buttonsBlock}>
                 <Button
                     name={'inc'}
                     callBack={onClickIncMinHandler}
-                    disabled={min === maxValue}
+                    disabled={incDisabled}
                 />
-
                 <Button
                     name={'reset'}
                     callBack={onClickResetHandler}
-                    disabled={disabled}
+                    disabled={resetDisabled}
                 />
-
             </div>
         </div>
     );

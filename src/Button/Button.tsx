@@ -4,17 +4,17 @@ import c from './Button.module.css'
 
 type ButtonPropsType = {
     name: string
-    callBack: ()=>void
+    callBack: () => void
     disabled?: boolean
 }
 
-export const Button = ({name, callBack, disabled,...props}:ButtonPropsType) => {
+export const Button = ({name, callBack, disabled, ...props}: ButtonPropsType) => {
 
-    const onClickHandler = () => {
-        callBack()
-    }
+    const onClickHandler = () => callBack()
+
     return (
-
-        <button className={c.button} disabled={disabled} onClick={onClickHandler}>{name}</button>
+        <button className={c.button} disabled={disabled} onClick={onClickHandler}>
+            {name}
+        </button>
     );
 };

@@ -5,15 +5,13 @@ import c from "./Input.module.css";
 type InputPropsType = {
     value: number
     onChangeCallBack: (newValue: number) => void
-    errorCallback: () => void
-    error: boolean | string
+    error: boolean
 }
 
-export const Input = ({value, onChangeCallBack, error, errorCallback, ...props}: InputPropsType) => {
+export const Input = ({value, onChangeCallBack, error}: InputPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-
-        let newValue = e.currentTarget.valueAsNumber
+        let newValue = +e.currentTarget.value
         onChangeCallBack(newValue)
     }
 

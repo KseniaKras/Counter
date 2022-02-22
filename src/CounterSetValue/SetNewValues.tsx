@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import c from './SetNewValues.module.css';
 import {Button} from "../Button/Button";
-import {Input} from "../Input/InputNumberType";
+import {SetValuesFromInput} from "./setValuesFromInput";
 
 
 type SetNewValuesPropsType = {
@@ -9,70 +9,73 @@ type SetNewValuesPropsType = {
     maxValue: number
     onClickSetValues: (min: number, max: number) => void
     errorCallback: (value: boolean) => void
-    error:boolean | string
+    error: boolean
+    showSetNewValuesSettings: (value: boolean) => void
 }
 
-export const SetNewValues = ({minValue, maxValue,error, ...props}: SetNewValuesPropsType) => {
+export const SetNewValues = ({
+                                 minValue,
+                                 maxValue,
+                                 onClickSetValues,
+                                 errorCallback,
+                                 error,
+                                 showSetNewValuesSettings,
+                             }: SetNewValuesPropsType) => {
 
         const [min, setMin] = useState(minValue)
         const [max, setMax] = useState(maxValue)
         const [disabled, setDisabled] = useState(false)
 
         const onChangeMaxHandler = (newValue: number) => {
-            if (max > min) {
-                setMax(newValue)
-                props.errorCallback(false)
+            setDisabled(false)
+            setMax(newValue)
+            if (newValue > min) {
+                errorCallback(false)
+                showSetNewValuesSettings(true)
             } else {
-                props.errorCallback(true)
+                errorCallback(true)
+                showSetNewValuesSettings(false)
             }
         }
 
         const onChangeMinHandler = (newValue: number) => {
-            if (min >= 0 && min < max) {
-                setMin(newValue)
-                props.errorCallback(false)
+            setDisabled(false)
+            setMin(newValue)
+            if (newValue >= max) {
+                errorCallback(true)
+                showSetNewValuesSettings(false)
             } else {
-                props.errorCallback(true)
+                errorCallback(false)
+                showSetNewValuesSettings(true)
             }
         }
 
         const onClickSetCounterHandler = () => {
-            props.onClickSetValues(min, max)
+            onClickSetValues(min, max)
             setDisabled(true)
+            showSetNewValuesSettings(false)
             if (error) {
-                props.errorCallback(true)
-                // setError(true)
-                setDisabled(true)
+                errorCallback(true)
             }
         }
 
         return (
             <div>
                 <div className={c.setNewValues}>
-                    <div className={c.setValue}>
-                        <span>max value:</span>
-
-                        <Input
-                            value={max}
-                            onChangeCallBack={onChangeMaxHandler}
-                            error={error}
-                            errorCallback={() => {}}
-                        />
-
-                    </div>
-                    <div>
-                        <span className={c.setValue}>min value:</span>
-
-                        <Input
-                            value={min}
-                            onChangeCallBack={onChangeMinHandler}
-                            error={error}
-                            errorCallback={() =>{}}
-                        />
-
-                    </div>
+                    <SetValuesFromInput
+                        title={'max value:'}
+                        value={max}
+                        onChangeMaxHandler={onChangeMaxHandler}
+                        error={error}
+                    />
+                    <SetValuesFromInput
+                        title={'min value:'}
+                        value={min}
+                        onChangeMaxHandler={onChangeMinHandler}
+                        error={error}
+                    />
                 </div>
-                <div className={c.allBtn}>
+                <div className={c.buttonsBlock}>
                     <Button name={'set'} callBack={onClickSetCounterHandler} disabled={disabled}/>
                 </div>
             </div>
