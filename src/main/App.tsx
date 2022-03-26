@@ -1,57 +1,55 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import './App.module.css';
 import c from './App.module.css';
 import {SetNewValues} from "../CounterSetValue/SetNewValues";
 import {Counter} from "../Counter/Counter";
+import {useDispatch, useSelector} from "react-redux";
+import {setCounterSettings, setError} from "../redux/counter-reducer";
+import {
+    selectCounterSettings,
+    selectError,
+    selectMaxValue,
+    selectMinValue,
+    selectNewValue
+} from "../redux/selectors/selectors";
 
 
 function App() {
 
-    const [minValue, setMinValue] = useState<number>(2)
-    const [maxValue, setMaxValue] = useState<number>(4)
-    const [error, setError] = useState<boolean>(false)
-    const [counterSettings, setCounterSettings] = useState<boolean>(false)
-    const [newCounterValue, setNewCounterValue] = useState(minValue)
+    const dispatch = useDispatch()
+    const minValue = useSelector(selectMinValue)
+    const maxValue = useSelector(selectMaxValue)
+    const newValue = useSelector(selectNewValue)
+    const error = useSelector(selectError)
+    const counterSettings = useSelector(selectCounterSettings)
 
-    const onClickSetNewValues = (min: number, max: number) => {
-        setMinValue(min)
-        setMaxValue(max)
-        setNewCounterValue(min)
-    }
+    const showErrorInSetNewValues = useCallback((value: boolean) => {
+        dispatch(setError(value))
+    }, [dispatch])
 
-    const showErrorInSetNewValues = (value: boolean) => {
-        setError(value)
-    }
-
-    const showSetNewValuesSettings = (value: boolean) => {
-        setCounterSettings(value)
-    }
+    const showSetNewValuesSettings = useCallback((value: boolean) => {
+        dispatch(setCounterSettings(value))
+    }, [dispatch])
 
     return (
         <div className={c.App}>
-
             <div className={c.counterSetValue}>
                 <SetNewValues
                     minValue={minValue}
                     maxValue={maxValue}
-                    onClickSetValues={onClickSetNewValues}
                     error={error}
                     errorCallback={showErrorInSetNewValues}
                     showSetNewValuesSettings={showSetNewValuesSettings}
                 />
             </div>
-
             <div className={c.counter}>
                 <Counter
-                    minValue={minValue}
+                    newValue={newValue}
                     maxValue={maxValue}
-                    newCounterValue={newCounterValue}
                     error={error}
                     resultSettings={counterSettings}
-                    setNewCounterValue={setNewCounterValue}
                 />
             </div>
-
         </div>
     );
 }

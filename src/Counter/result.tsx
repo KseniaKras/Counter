@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import '../main/App.module.css';
 import c from './result.module.css'
 
@@ -9,7 +9,7 @@ type ResultPropsType = {
     resultSettings: boolean
 }
 
-export const Result = ({counter, maxValue, error, resultSettings}: ResultPropsType) => {
+export const Result = memo(({counter, maxValue, error, resultSettings}: ResultPropsType) => {
 
     const resultStyle = counter === maxValue ? `${c.error}` : `${c.result}`
 
@@ -27,4 +27,4 @@ export const Result = ({counter, maxValue, error, resultSettings}: ResultPropsTy
             {result}
         </div>
     );
-};
+});

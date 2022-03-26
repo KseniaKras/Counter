@@ -1,23 +1,23 @@
-import React from 'react';
+import React, {memo} from 'react';
 import c from "./SetNewValues.module.css";
 import {Input} from "../Input/Input";
 
 type SetValuesFromInputPropsType = {
     title: string
     value: number
-    onChangeMaxHandler: (newValue: number) => void
+    onChangeHandler: (newValue: number) => void
     error: boolean
 }
 
-export const SetValuesFromInput = ({title, value, onChangeMaxHandler, error}:SetValuesFromInputPropsType) => {
+export const SetValuesFromInput = memo(({title, value, onChangeHandler, error}: SetValuesFromInputPropsType) => {
     return (
         <div className={c.setValue}>
             <span>{title}</span>
             <Input
                 value={value}
-                onChangeCallBack={onChangeMaxHandler}
+                onChangeCallBack={onChangeHandler}
                 error={error}
             />
         </div>
     );
-};
+});

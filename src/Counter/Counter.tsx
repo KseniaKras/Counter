@@ -1,49 +1,49 @@
-import React, {useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {Result} from "./result";
 import {Button} from "../Button/Button";
 import c from './../Button/Button.module.css'
+import {useDispatch} from "react-redux";
+import {incCounterValue, resetCounterValue} from "../redux/counter-reducer";
 
 type CounterPropsType = {
-    minValue: number
+    newValue: number
     maxValue: number
     error: boolean
     resultSettings: boolean
-    newCounterValue: number
-    setNewCounterValue: (value: number) => void
 }
 
-export const Counter = ({
-                            minValue,
-                            maxValue,
-                            error,
-                            resultSettings,
-                            newCounterValue,
-                            setNewCounterValue
-                        }: CounterPropsType) => {
+export const Counter = memo(({
+                                 newValue,
+                                 maxValue,
+                                 error,
+                                 resultSettings,
+                             }: CounterPropsType) => {
 
     const [incDisabled, setIncDisabled] = useState(false)
     const [resetDisabled, setResetDisabled] = useState(false)
 
-    const onClickIncMinHandler = () => {
-        if (newCounterValue < maxValue) {
-            setNewCounterValue(newCounterValue + 1)
+    const dispatch = useDispatch()
+
+    const onClickIncMinHandler = useCallback(() => {
+        if (newValue < maxValue) {
+            dispatch(incCounterValue())
             setResetDisabled(false)
             setIncDisabled(false)
         } else {
             setIncDisabled(true)
         }
-    }
+    }, [])
 
-    const onClickResetHandler = () => {
-        debugger
-        setNewCounterValue(minValue)
+    const onClickResetHandler = useCallback(() => {
+        dispatch(resetCounterValue())
         setResetDisabled(true)
         setIncDisabled(false)
-    }
+    }, [])
+
     return (
         <div>
             <Result
-                counter={newCounterValue}
+                counter={newValue}
                 maxValue={maxValue}
                 error={error}
                 resultSettings={resultSettings}
@@ -63,4 +63,4 @@ export const Counter = ({
             </div>
         </div>
     );
-};
+});

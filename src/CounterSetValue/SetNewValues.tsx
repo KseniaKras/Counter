@@ -1,77 +1,77 @@
-import React, {useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import c from './SetNewValues.module.css';
 import {Button} from "../Button/Button";
 import {SetValuesFromInput} from "./setValuesFromInput";
+import {useDispatch} from "react-redux";
+import {setNewMaxCounterValue, setNewMinCounterValue} from "../redux/counter-reducer";
 
 
 type SetNewValuesPropsType = {
     minValue: number
     maxValue: number
-    onClickSetValues: (min: number, max: number) => void
-    errorCallback: (value: boolean) => void
     error: boolean
+    errorCallback: (value: boolean) => void
     showSetNewValuesSettings: (value: boolean) => void
 }
 
-export const SetNewValues = ({
-                                 minValue,
-                                 maxValue,
-                                 onClickSetValues,
-                                 errorCallback,
-                                 error,
-                                 showSetNewValuesSettings,
-                             }: SetNewValuesPropsType) => {
+export const SetNewValues = memo(({
+                                      minValue,
+                                      maxValue,
+                                      errorCallback,
+                                      error,
+                                      showSetNewValuesSettings,
+                                  }: SetNewValuesPropsType) => {
 
-        const [min, setMin] = useState(minValue)
-        const [max, setMax] = useState(maxValue)
+        const dispatch = useDispatch()
         const [disabled, setDisabled] = useState(false)
 
-        const onChangeMaxHandler = (newValue: number) => {
+        const onChangeMaxHandler = useCallback((newValue: number) => {
             setDisabled(false)
-            setMax(newValue)
-            if (newValue > min) {
+            dispatch(setNewMaxCounterValue(newValue))
+            if (newValue > minValue) {
                 errorCallback(false)
                 showSetNewValuesSettings(true)
-            } else {
-                errorCallback(true)
-                showSetNewValuesSettings(false)
-            }
-        }
 
-        const onChangeMinHandler = (newValue: number) => {
-            setDisabled(false)
-            setMin(newValue)
-            if (newValue >= max) {
-                errorCallback(true)
-                showSetNewValuesSettings(false)
             } else {
-                errorCallback(false)
+                errorCallback(true)
                 showSetNewValuesSettings(true)
             }
-        }
+        }, [dispatch, maxValue])
 
-        const onClickSetCounterHandler = () => {
-            onClickSetValues(min, max)
+        const onChangeMinHandler = useCallback((newValue: number) => {
+            setDisabled(false)
+            dispatch(setNewMinCounterValue(newValue))
+            if (newValue < maxValue) {
+                errorCallback(false)
+                showSetNewValuesSettings(true)
+
+            } else {
+                errorCallback(true)
+                showSetNewValuesSettings(true)
+            }
+        }, [dispatch, minValue])
+
+        const onClickSetCounterHandler = useCallback(() => {
             setDisabled(true)
             showSetNewValuesSettings(false)
             if (error) {
                 errorCallback(true)
             }
-        }
+        }, [])
 
         return (
             <div>
                 <div className={c.setNewValues}>
                     <SetValuesFromInput
                         title={'max value:'}
-                        value={max}
-                        onChangeMaxHandler={onChangeMaxHandler}
+                        value={maxValue}
+                        onChangeHandler={onChangeMaxHandler}
                         error={error}
                     />
                     <SetValuesFromInput
                         title={'min value:'}
-                        value={min}
-                        onChangeMaxHandler={onChangeMinHandler}
+                        value={minValue}
+                        onChangeHandler={onChangeMinHandler}
                         error={error}
                     />
                 </div>
@@ -80,5 +80,5 @@ export const SetNewValues = ({
                 </div>
             </div>
         );
-    }
+    })
 ;

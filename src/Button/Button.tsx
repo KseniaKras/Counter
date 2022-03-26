@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import '../main/App.module.css';
 import c from './Button.module.css'
 
@@ -8,13 +8,13 @@ type ButtonPropsType = {
     disabled?: boolean
 }
 
-export const Button = ({name, callBack, disabled, ...props}: ButtonPropsType) => {
+export const Button = memo(({name, callBack, disabled}: ButtonPropsType) => {
 
-    const onClickHandler = () => callBack()
+    const onClickHandler = useCallback(() => callBack(), [])
 
     return (
         <button className={c.button} disabled={disabled} onClick={onClickHandler}>
             {name}
         </button>
     );
-};
+});

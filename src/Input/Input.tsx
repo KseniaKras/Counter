@@ -19,7 +19,7 @@ export const Input = ({value, onChangeCallBack, error}: InputPropsType) => {
 
     return (
         <input
-            type={"number"}
+            type={'number'}
             value={value}
             onChange={onChangeHandler}
             className={inputClassName}
