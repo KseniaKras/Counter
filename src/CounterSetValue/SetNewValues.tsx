@@ -25,7 +25,7 @@ export const SetNewValues = memo(({
         const dispatch = useDispatch()
         const [disabled, setDisabled] = useState(false)
 
-        const onChangeMaxHandler = useCallback((newValue: number) => {
+        const onChangeMaxHandler = (newValue: number) => {
             setDisabled(false)
             dispatch(setNewMaxCounterValue(newValue))
             if (newValue > minValue) {
@@ -36,9 +36,9 @@ export const SetNewValues = memo(({
                 errorCallback(true)
                 showSetNewValuesSettings(true)
             }
-        }, [dispatch, maxValue])
+        }
 
-        const onChangeMinHandler = useCallback((newValue: number) => {
+        const onChangeMinHandler = (newValue: number) => {
             setDisabled(false)
             dispatch(setNewMinCounterValue(newValue))
             if (newValue < maxValue) {
@@ -49,7 +49,7 @@ export const SetNewValues = memo(({
                 errorCallback(true)
                 showSetNewValuesSettings(true)
             }
-        }, [dispatch, minValue])
+        }
 
         const onClickSetCounterHandler = useCallback(() => {
             setDisabled(true)
