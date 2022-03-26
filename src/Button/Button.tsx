@@ -10,7 +10,7 @@ type ButtonPropsType = {
 
 export const Button = memo(({name, callBack, disabled}: ButtonPropsType) => {
 
-    const onClickHandler = useCallback(() => callBack(), [])
+    const onClickHandler = () => callBack()
 
     return (
         <button className={c.button} disabled={disabled} onClick={onClickHandler}>

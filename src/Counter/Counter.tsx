@@ -24,7 +24,7 @@ export const Counter = memo(({
 
     const dispatch = useDispatch()
 
-    const onClickIncMinHandler = useCallback(() => {
+    const onClickIncMinHandler = () => {
         if (newValue < maxValue) {
             dispatch(incCounterValue())
             setResetDisabled(false)
@@ -32,7 +32,7 @@ export const Counter = memo(({
         } else {
             setIncDisabled(true)
         }
-    }, [])
+    }
 
     const onClickResetHandler = useCallback(() => {
         dispatch(resetCounterValue())
