@@ -4,7 +4,6 @@ import c from './App.module.css';
 import {SetNewValues} from "../CounterSetValue/SetNewValues";
 import {Counter} from "../Counter/Counter";
 import {useDispatch, useSelector} from "react-redux";
-import {setCounterSettings, setError} from "../redux/counter-reducer";
 import {
     selectCounterSettings,
     selectError,
@@ -12,14 +11,14 @@ import {
     selectMinValue,
     selectNewValue
 } from "../redux/selectors/selectors";
+import {setCounterSettings, setError} from "../redux/reducers/settings-reducer";
+import {AppRootStateType} from "../redux/store";
 
 
 function App() {
 
     const dispatch = useDispatch()
-    const minValue = useSelector(selectMinValue)
-    const maxValue = useSelector(selectMaxValue)
-    const newValue = useSelector(selectNewValue)
+    const { minValue, maxValue, newValue } = useSelector((state: AppRootStateType) => state.counter)
     const error = useSelector(selectError)
     const counterSettings = useSelector(selectCounterSettings)
 
@@ -48,7 +47,7 @@ function App() {
                     newValue={newValue}
                     maxValue={maxValue}
                     error={error}
-                    resultSettings={counterSettings}
+                    counterSettings={counterSettings}
                 />
             </div>
         </div>

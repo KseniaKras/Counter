@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo} from 'react';
 import '../main/App.module.css';
 import c from './Button.module.css'
 
@@ -10,10 +10,8 @@ type ButtonPropsType = {
 
 export const Button = memo(({name, callBack, disabled}: ButtonPropsType) => {
 
-    const onClickHandler = () => callBack()
-
     return (
-        <button className={c.button} disabled={disabled} onClick={onClickHandler}>
+        <button className={c.button} disabled={disabled} onClick={callBack}>
             {name}
         </button>
     );

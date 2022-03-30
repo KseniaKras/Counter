@@ -3,24 +3,24 @@ import {Result} from "./result";
 import {Button} from "../Button/Button";
 import c from './../Button/Button.module.css'
 import {useDispatch} from "react-redux";
-import {incCounterValue, resetCounterValue} from "../redux/counter-reducer";
+import {incCounterValue, resetCounterValue} from "../redux/reducers/counter-reducer";
 
 type CounterPropsType = {
     newValue: number
     maxValue: number
     error: boolean
-    resultSettings: boolean
+    counterSettings: boolean
 }
 
 export const Counter = memo(({
                                  newValue,
                                  maxValue,
                                  error,
-                                 resultSettings,
+                                 counterSettings,
                              }: CounterPropsType) => {
 
-    const [incDisabled, setIncDisabled] = useState(false)
-    const [resetDisabled, setResetDisabled] = useState(false)
+    const [incDisabled, setIncDisabled] = useState<boolean>(false)
+    const [resetDisabled, setResetDisabled] = useState<boolean>(false)
 
     const dispatch = useDispatch()
 
@@ -46,7 +46,7 @@ export const Counter = memo(({
                 counter={newValue}
                 maxValue={maxValue}
                 error={error}
-                resultSettings={resultSettings}
+                counterSettings={counterSettings}
             />
 
             <div className={c.buttonsBlock}>

@@ -6,7 +6,8 @@
     margin: 10px;
     height: 120px;
     background-color: #01B7F0;
-    border: 3px solid #01B7F0;
+    /*border: 3px solid #01B7F0;*/
+    border: 3px solid #0d2c7e;
     border-radius: 10px;
 }
 

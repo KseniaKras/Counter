@@ -1,9 +1,10 @@
-import {AppRootStateType} from "../redux/store";
+import {CounterReducerStateType} from "../redux/store";
+
+const LOCAL_STORAGE_COUNTER_KEY = 'counter-values'
 
 export const loadState = () => {
     try {
-        debugger
-        const serializedState = localStorage.getItem('counter-values')
+        const serializedState = localStorage.getItem(LOCAL_STORAGE_COUNTER_KEY)
         if (serializedState === null) {
             return undefined
         }
@@ -13,10 +14,10 @@ export const loadState = () => {
     }
 }
 
-export const saveState = (state: AppRootStateType) => {
+export const saveState = (state: {counter: CounterReducerStateType}) => {  //????????????
     try {
         const serializedState = JSON.stringify(state)
-        localStorage.setItem('counter-values', serializedState)
+        localStorage.setItem(LOCAL_STORAGE_COUNTER_KEY, serializedState)
     } catch {
 
     }

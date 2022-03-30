@@ -1,6 +1,7 @@
 body {
   margin: 50px auto;
-  background-color: #2e2f46;
+  background-color: rgba(2, 80, 80, 0.87);
+  /*background-color: #2e2f46;*/
   display: flex;
   justify-content: center;
   align-items: center;
