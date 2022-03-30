@@ -27,9 +27,10 @@ function App() {
         dispatch(setError(value))
     }, [dispatch])
 
-    const showSetNewValuesSettings = useCallback((value: boolean) => {
+    const showValuesSettings = useCallback((value: boolean) => {
         dispatch(setCounterSettings(value))
     }, [dispatch])
+
 
     return (
         <div className={c.App}>
@@ -39,7 +40,7 @@ function App() {
                     maxValue={maxValue}
                     error={error}
                     errorCallback={showErrorInSetNewValues}
-                    showSetNewValuesSettings={showSetNewValuesSettings}
+                    showSetNewValuesSettings={showValuesSettings}
                 />
             </div>
             <div className={c.counter}>

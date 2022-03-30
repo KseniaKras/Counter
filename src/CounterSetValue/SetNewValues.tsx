@@ -39,6 +39,7 @@ export const SetNewValues = memo(({
         }
 
         const onChangeMinHandler = (newValue: number) => {
+
             setDisabled(false)
             dispatch(setNewMinCounterValue(newValue))
             if (newValue < maxValue) {
